@@ -1,10 +1,15 @@
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
-import { products } from "@/lib/products";
+import clientPromise from "@/lib/mongodb";
 
+import { ObjectId } from "mongodb";
 
-export default function ProductDetailsPage({ params }) {
-  const product = products.find((p) => p.id === params.id);
+export default async function ProductDetailsPage({ params }) {
+  const client = await clientPromise;
+  const db = client.db("novashop");
+  const product = await db
+    .collection("products")
+    .findOne({ _id: new ObjectId(params.id) });
 
   if (!product) {
     return (
@@ -25,9 +30,6 @@ export default function ProductDetailsPage({ params }) {
         <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
         <p className="text-lg text-gray-700 mb-6">{product.description}</p>
         <p className="text-2xl font-semibold mb-6">${product.price}</p>
-        <button className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          Add to Cart
-        </button>
       </main>
       <Footer />
     </div>

@@ -1,27 +1,126 @@
 @import "tailwindcss";
 
-
+/* =======================
+   Colors & Theme Variables
+======================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #3B82F6;       /* Buttons, links */
+  --primary-hover: #2563EB; /* Hover states */
+  --background: #F9FAFB;    /* Page background */
+  --foreground: #111827;    /* Text color */
+  --card-bg: #ffffff;       /* Card / container background */
+  --success: #16A34A;       /* Success messages */
+  --error: #DC2626;         /* Error messages */
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #111827;
+    --foreground: #F9FAFB;
+    --card-bg: #1F2937;
   }
 }
 
+/* =======================
+   Body & Base Styles
+======================= */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+}
+
+/* =======================
+   Buttons
+======================= */
+button {
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* =======================
+   Inputs & Textareas
+======================= */
+input, textarea {
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--card-bg);
+  color: var(--foreground);
+}
+
+input:focus, textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* subtle blue glow */
+}
+
+/* =======================
+   Cards / Containers
+======================= */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* =======================
+   Toast / Alerts
+======================= */
+.toast {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  color: #fff;
+  font-weight: bold;
+  z-index: 50;
+}
+
+.toast-success {
+  background-color: var(--success);
+}
+
+.toast-error {
+  background-color: var(--error);
+}
+
+/* =======================
+   Loading Spinner
+======================= */
+.spinner {
+  border: 4px solid rgba(0,0,0,0.1);
+  border-left-color: var(--primary);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
