@@ -71,7 +71,7 @@ export default function AddProductPage() {
   return (
     <div>
       <Navbar />
-      <main className="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-lg">
+      <main className="max-w-md mx-auto my-10 p-6 bg-white rounded-xl shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-gray-800">Add Product</h1>
 
         {success && (
