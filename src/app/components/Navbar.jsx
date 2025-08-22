@@ -5,10 +5,12 @@ import Link from "next/link";
 import { FaUserCircle, FaUser, FaTachometerAlt, FaSignOutAlt, FaCog } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const { data: session } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -56,7 +58,10 @@ export default function Navbar() {
                     <Link href="/settings" className="flex items-center px-4 py-2 hover:bg-primary/10 transition-colors">
                       <FaCog className="mr-2" /> Settings
                     </Link>
-                    <button onClick={() => signOut()} className="flex items-center w-full px-4 py-2 hover:bg-primary/10 transition-colors text-left">
+                    <button onClick={() => {
+                      signOut()
+                      router.push('/')
+                    }} className="flex items-center w-full px-4 py-2 hover:bg-primary/10 transition-colors text-left">
                       <FaSignOutAlt className="mr-2" /> Logout
                     </button>
                   </motion.div>
