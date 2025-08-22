@@ -12,8 +12,8 @@ export const authOptions = {
       authorize: async (credentials) => {
         // Simple demo authentication
         if (
-          credentials.email === process.env.DEMO_EMAIL &&
-          credentials.password === process.env.DEMO_PASSWORD
+          credentials.email === process.env.NEXT_PUBLIC_DEMO_EMAIL &&
+          credentials.password === process.env.NEXT_PUBLIC_DEMO_PASSWORD
         ) {
           return { id: 1, name: "Demo User", email: credentials.email };
         }
