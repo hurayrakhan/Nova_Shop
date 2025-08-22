@@ -1,27 +1,39 @@
-import Footer from "@/app/components/Footer";
-import Navbar from "@/app/components/Navbar";
-import ProductsList from "@/app/components/ProductsList";
 import clientPromise from "@/lib/mongodb";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import { ObjectId } from "mongodb";
+import ProductDetailsClient from "@/app/components/ProductDetails";
 
-export default async function ProductsPage() {
+export default async function ProductDetailsPage({ params }) {
+  const { id } = params;
+
   const client = await clientPromise;
   const db = client.db("novashop");
-  const products = await db
+
+  const product = await db
     .collection("products")
-    .find({})
-    .sort({ _id: -1 })
-    .toArray();
+    .findOne({ _id: new ObjectId(id) });
+
+  if (!product) {
+    return (
+      <div>
+        <Navbar />
+        <main className="max-w-3xl mx-auto py-20 text-center">
+          <h1 className="text-3xl font-bold">Product not found</h1>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Serialize _id
+  const serializedProduct = { ...product, _id: product._id.toString() };
 
   return (
     <div>
       <Navbar />
-      <main className="max-w-6xl mx-auto py-16 px-4">
-        <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
-          Our Products
-        </h1>
-
-        {/* Client-side motion component */}
-        <ProductsList products={products} />
+      <main className="max-w-4xl mx-auto py-16 px-4">
+        <ProductDetailsClient product={serializedProduct} />
       </main>
       <Footer />
     </div>
