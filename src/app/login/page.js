@@ -12,7 +12,7 @@ export default function LoginPage() {
   const searchParams = useSearchParams();
 
   // target route if user was redirected (e.g. /login?callbackUrl=/dashboard)
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  const callbackUrl = searchParams?.get("callbackUrl") || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
