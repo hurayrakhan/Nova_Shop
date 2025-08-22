@@ -15,7 +15,7 @@ export default function ProductDetailsClient({ product }) {
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-96 object-contain"
+          className="w-full h-96 object-cover"
         />
       )}
       <div className="p-6">

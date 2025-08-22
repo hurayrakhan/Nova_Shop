@@ -21,12 +21,12 @@ export default function ProductHighlights() {
   }, []);
 
   return (
-    <section className="py-16 border-t bg-gray-50">
+    <section className="py-16 bg-gray-50">
       <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
         Product Highlights
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4">
         {products.map((p, index) => (
           <motion.div
             key={p._id || p.id}
