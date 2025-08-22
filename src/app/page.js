@@ -29,7 +29,7 @@ export default function HomePage() {
           <ProductHighlights />
         </motion.section>
       </main>
-      <Footer />
+      <Footer></Footer>
     </>
   );
 }

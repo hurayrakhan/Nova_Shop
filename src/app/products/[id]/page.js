@@ -1,35 +1,27 @@
 import Footer from "@/app/components/Footer";
 import Navbar from "@/app/components/Navbar";
+import ProductsList from "@/app/components/ProductsList";
 import clientPromise from "@/lib/mongodb";
 
-import { ObjectId } from "mongodb";
-
-export default async function ProductDetailsPage({ params }) {
+export default async function ProductsPage() {
   const client = await clientPromise;
   const db = client.db("novashop");
-  const product = await db
+  const products = await db
     .collection("products")
-    .findOne({ _id: new ObjectId(params.id) });
-
-  if (!product) {
-    return (
-      <div>
-        <Navbar />
-        <main className="max-w-4xl mx-auto py-12 px-4 text-center">
-          <h1 className="text-2xl font-bold">Product not found ❌</h1>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+    .find({})
+    .sort({ _id: -1 })
+    .toArray();
 
   return (
     <div>
       <Navbar />
-      <main className="max-w-4xl mx-auto py-12 px-4">
-        <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-        <p className="text-lg text-gray-700 mb-6">{product.description}</p>
-        <p className="text-2xl font-semibold mb-6">${product.price}</p>
+      <main className="max-w-6xl mx-auto py-16 px-4">
+        <h1 className="text-4xl font-bold mb-12 text-center text-gray-800">
+          Our Products
+        </h1>
+
+        {/* Client-side motion component */}
+        <ProductsList products={products} />
       </main>
       <Footer />
     </div>
