@@ -45,7 +45,7 @@ export default function LoginPage() {
           Login
         </button>
       </form>
-      <p className="text-sm text-gray-500 mt-2">
+      <p className="text-sm text-gray-400 mt-2">
         Use {process.env.DEMO_EMAIL} / {process.env.DEMO_PASSWORD}
       </p>
     </div>
