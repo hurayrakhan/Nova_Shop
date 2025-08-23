@@ -17,7 +17,6 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true);
 
-    console.log(email, password)
 
     const res = await signIn("credentials", {
       redirect: false,
@@ -25,7 +24,6 @@ export default function LoginForm() {
       password,
       callbackUrl,
     });
-    console.log(res)
     setLoading(false);
 
     if (res?.ok) {
