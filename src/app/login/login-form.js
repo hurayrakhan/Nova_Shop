@@ -11,11 +11,13 @@ export default function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const callbackUrl = searchParams?.get("callbackUrl") || "/";
+  const callbackUrl = searchParams?.get("callbackUrl") || "/products";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+
+    console.log(email, password)
 
     const res = await signIn("credentials", {
       redirect: false,
@@ -23,7 +25,7 @@ export default function LoginForm() {
       password,
       callbackUrl,
     });
-
+    console.log(res)
     setLoading(false);
 
     if (res?.ok) {
