@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🛍️ Nova Shop
 
-## Getting Started
+Nova Shop is a full-stack e-commerce application built with **Next.js 15**, **MongoDB**, and **TailwindCSS**.  
+It provides product listings, authentication, and a clean, responsive UI.  
 
-First, run the development server:
+🔗 **Live Demo:** [https://nova-shop-delta.vercel.app/](https://nova-shop-delta.vercel.app/)
 
+---
+
+## ✨ Features
+
+- 🛒 Product listing with details  
+- 🔐 Authentication using **NextAuth.js**  
+- 📦 MongoDB integration for storing products  
+- 🎨 Beautiful responsive design with TailwindCSS  
+- 🎬 Smooth animations via Framer Motion  
+- ⚡ Deployed seamlessly on Vercel  
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to set up the project locally:
+
+### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+git clone https://github.com/yourusername/nova-shop.git
+cd nova-shop
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Do you also want me to **add your GitHub repo link & profile link** automatically inside this README (in the clone command & author section), so it’s production-ready?
