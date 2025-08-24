@@ -7,14 +7,15 @@ import { compare } from "bcrypt";
 
 const handler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
+
   providers: [
-    // ✅ Google Provider
+    // ✅ Google OAuth
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
 
-    // ✅ Email/Password Provider
+    // ✅ Email / Password
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -35,16 +36,54 @@ const handler = NextAuth({
           id: user._id.toString(),
           name: user.name,
           email: user.email,
+          image: user.image || null,
         };
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+
+  pages: {
+    signIn: "/login",
+  },
+
   session: {
     strategy: "jwt",
   },
-  pages: {
-    signIn: "/login", // custom login page
+
+  secret: process.env.NEXTAUTH_SECRET,
+
+  callbacks: {
+    // Called whenever a user signs in
+    async signIn({ user, account }) {
+      if (account.provider === "google") {
+        const client = await clientPromise;
+        const db = client.db("novashop");
+
+        const existingUser = await db.collection("users").findOne({ email: user.email });
+        if (!existingUser) {
+          // Create a new user document for Google users
+          await db.collection("users").insertOne({
+            name: user.name,
+            email: user.email,
+            image: user.image,
+            createdAt: new Date(),
+          });
+        }
+      }
+      return true; // allow sign-in
+    },
+
+    // Include user id in the JWT token
+    async jwt({ token, user }) {
+      if (user) token.id = user.id || user._id?.toString();
+      return token;
+    },
+
+    // Include user info in the session
+    async session({ session, token }) {
+      session.user.id = token.id;
+      return session;
+    },
   },
 });
 
