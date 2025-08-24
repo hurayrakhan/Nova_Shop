@@ -1,29 +1,51 @@
 import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "@/lib/mongodb";
+import { compare } from "bcrypt";
 
-export const authOptions = {
+const handler = NextAuth({
+  adapter: MongoDBAdapter(clientPromise),
   providers: [
+    // ✅ Google Provider
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+
+    // ✅ Email/Password Provider
     CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials) => {
-        // Simple demo authentication
-        if (
-          credentials.email === process.env.NEXT_PUBLIC_DEMO_EMAIL &&
-          credentials.password === process.env.NEXT_PUBLIC_DEMO_PASSWORD
-        ) {
-          return { id: 1, name: "Demo User", email: credentials.email };
-        }
-        return null;
+      async authorize(credentials) {
+        const client = await clientPromise;
+        const db = client.db("novashop");
+
+        const user = await db.collection("users").findOne({ email: credentials.email });
+        if (!user) throw new Error("No user found with this email");
+
+        const isValid = await compare(credentials.password, user.password);
+        if (!isValid) throw new Error("Invalid password");
+
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+        };
       },
     }),
   ],
-  session: { strategy: "jwt" },
-  pages: { signIn: "/login" },
-};
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login", // custom login page
+  },
+});
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
