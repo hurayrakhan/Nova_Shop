@@ -58,7 +58,7 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
         className="w-full max-w-sm bg-white shadow-lg rounded-lg p-6"
       >
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+        <h2 className="text-2xl text-gray-700 font-bold mb-4 text-center">Login</h2>
 
         {/* Email Input */}
         <input
@@ -101,7 +101,7 @@ export default function LoginPage() {
         </button>
 
         {/* Switch to Register */}
-        <p className="text-sm text-center mt-4">
+        <p className="text-sm text-gray-500 text-center mt-4">
           Don’t have an account?{" "}
           <span
             onClick={() => router.push("/register")}
