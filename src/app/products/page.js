@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import clientPromise from "@/lib/mongodb";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
@@ -12,6 +14,7 @@ export default async function ProductsPage() {
     .sort({ _id: -1 })
     .toArray();
 
+  console.log(products)
   // convert _id to string so it's serializable
   const serializedProducts = products.map(p => ({
     ...p,
