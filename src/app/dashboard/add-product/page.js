@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { motion } from "framer-motion";
+import ProtectedRoute from "@/app/components/ProtectedRoute";
 
 export default function AddProductPage() {
   const [name, setName] = useState("");
@@ -69,65 +70,67 @@ export default function AddProductPage() {
   };
 
   return (
-    <div>
-      <Navbar />
-      <main className="max-w-md mx-auto my-10 p-6 bg-white rounded-xl shadow-lg">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">Add Product</h1>
+    <ProtectedRoute>
+      <div>
+        <Navbar />
+        <main className="max-w-md mx-auto my-10 p-6 bg-white rounded-xl shadow-lg">
+          <h1 className="text-2xl font-bold mb-6 text-gray-800">Add Product</h1>
 
-        {success && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-green-600 mb-4"
-          >
-            Product added successfully!
-          </motion.p>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Product Name"
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <textarea
-            placeholder="Description"
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-          <input
-            type="number"
-            placeholder="Price"
-            className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full text-gray-700"
-          />
-          {preview && (
-            <img src={preview} alt="Preview" className="w-32 h-32 object-cover rounded mt-2" />
+          {success && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-green-600 mb-4"
+            >
+              Product added successfully!
+            </motion.p>
           )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
-          >
-            {loading ? "Adding..." : "Add Product"}
-          </button>
-        </form>
-      </main>
-      <Footer />
-    </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              placeholder="Product Name"
+              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <textarea
+              placeholder="Description"
+              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
+            <input
+              type="number"
+              placeholder="Price"
+              className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="w-full text-gray-700"
+            />
+            {preview && (
+              <img src={preview} alt="Preview" className="w-32 h-32 object-cover rounded mt-2" />
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
+            >
+              {loading ? "Adding..." : "Add Product"}
+            </button>
+          </form>
+        </main>
+        <Footer />
+      </div>
+    </ProtectedRoute>
   );
 }
