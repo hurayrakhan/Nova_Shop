@@ -49,7 +49,7 @@ export default function ProductsList({ products }) {
                         </p>
                         <Link
                             href={`/products/${p._id.toString()}`}
-                            className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                            className="inline-block bg-gradient-to-r from-purple-800 to-cyan-300 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
                         >
                             View Details
                         </Link>
